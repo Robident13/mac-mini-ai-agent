@@ -1,0 +1,81 @@
+.robot-face-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  flex: 1;
+  min-height: 300px;
+}
+
+.robot-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.face-content {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.face-inner {
+  position: relative;
+  width: 120px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pairing bars */
+.pairing-bars {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  height: 40px;
+}
+
+.pairing-bar {
+  width: 4px;
+  height: 40px;
+  background: var(--accent-blue);
+  border-radius: 2px;
+  transform-origin: center;
+}
+
+/* Radar */
+.radar-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radar-ring {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--text-primary);
+  border-radius: 50%;
+}
+
+.radar-ring:nth-child(2) {
+  border-color: var(--accent-blue);
+}
+
+.radar-ring:nth-child(3) {
+  border-color: var(--accent-blue);
+  opacity: 0.5;
+}
+
+.radar-center {
+  width: 8px;
+  height: 8px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  z-index: 1;
+}

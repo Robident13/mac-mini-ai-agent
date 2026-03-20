@@ -14,6 +14,7 @@ echo "    Phase 5: n8n (automation / WhatsApp)              [Docker]"
 echo "    Phase 6: MCP servers + SearXNG (private search)   [Docker]"
 echo "    Phase 7: Promptfoo (prompt testing / eval)"
 echo "    Phase 8: Document tools (Word & PDF processing)"
+echo "    Phase 9: Local AI UI (React chat interface)"
 echo ""
 echo "  Prerequisites:"
 echo "    - macOS on Apple Silicon (M1/M2/M4)"
@@ -59,7 +60,7 @@ run_phase() {
 
 echo "How would you like to install?"
 echo ""
-echo "  1) Full install (all 8 phases)"
+echo "  1) Full install (all 9 phases)"
 echo "  2) Phase by phase (choose which to run)"
 echo "  3) Phases 1-3 only (no Docker required)"
 echo "  4) Phases 1-3 + 7-8 (no Docker, includes Promptfoo & doc tools)"
@@ -71,7 +72,7 @@ case "$CHOICE" in
     echo ""
     echo "Running full install..."
     echo ""
-    for phase in 1 2 3 4 5 6 7 8; do
+    for phase in 1 2 3 4 5 6 7 8 9; do
       run_phase $phase
       echo ""
     done
@@ -87,6 +88,7 @@ case "$CHOICE" in
     echo "  6 — MCP + SearXNG         [Docker]"
     echo "  7 — Promptfoo (eval)"
     echo "  8 — Document Tools (Word & PDF)"
+    echo "  9 — Local AI UI"
     echo ""
     read -rp "Enter phase numbers (e.g. 1 3 7 8): " PHASES
     for phase in $PHASES; do
@@ -129,6 +131,7 @@ echo "    AnythingLLM:  http://localhost:3001"
 echo "    Open WebUI:   http://localhost:3000   (if Phase 4 ran)"
 echo "    n8n:          http://localhost:5678   (if Phase 5 ran)"
 echo "    SearXNG:      http://localhost:8080   (if Phase 6 ran)"
+echo "    Local AI UI:  http://localhost:5173   (if Phase 9 ran)"
 echo ""
 echo "  Commands (run 'source ~/.zshrc' first):"
 echo "    ai-code   — Aider + Ollama (free)"
