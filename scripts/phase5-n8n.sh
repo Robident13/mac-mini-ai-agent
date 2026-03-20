@@ -2,7 +2,7 @@
 set -e
 
 echo "========================================="
-echo "Phase 4 — Docker + n8n"
+echo "Phase 5 — n8n (Automation)"
 echo "========================================="
 
 # Check Docker
@@ -53,7 +53,7 @@ done
 
 echo ""
 echo "========================================="
-echo "Phase 4 COMPLETE"
+echo "Phase 5 COMPLETE"
 echo "========================================="
 echo ""
 echo "n8n available at: http://localhost:5678"

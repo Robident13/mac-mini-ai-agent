@@ -9,13 +9,16 @@ echo "  This will install and configure:"
 echo "    Phase 1: Ollama + local models (GLM-4 9B, qwen2.5-coder, embeddings)"
 echo "    Phase 2: AnythingLLM (local RAG / document chat)"
 echo "    Phase 3: Aider + Claude Code + shell aliases"
-echo "    Phase 4: Docker + n8n (automation / WhatsApp)"
-echo "    Phase 5: MCP servers + SearXNG (private search)"
+echo "    Phase 4: Open WebUI (chat interface)             [Docker]"
+echo "    Phase 5: n8n (automation / WhatsApp)              [Docker]"
+echo "    Phase 6: MCP servers + SearXNG (private search)   [Docker]"
+echo "    Phase 7: Promptfoo (prompt testing / eval)"
+echo "    Phase 8: Document tools (Word & PDF processing)"
 echo ""
 echo "  Prerequisites:"
 echo "    - macOS on Apple Silicon (M1/M2/M4)"
 echo "    - Homebrew installed (https://brew.sh)"
-echo "    - Docker Desktop installed for Phases 4-5 (https://docs.docker.com/desktop/mac/)"
+echo "    - Docker Desktop for Phases 4-6 (https://docs.docker.com/desktop/mac/)"
 echo ""
 
 # Check prerequisites
@@ -56,18 +59,19 @@ run_phase() {
 
 echo "How would you like to install?"
 echo ""
-echo "  1) Full install (all 5 phases)"
+echo "  1) Full install (all 8 phases)"
 echo "  2) Phase by phase (choose which to run)"
 echo "  3) Phases 1-3 only (no Docker required)"
+echo "  4) Phases 1-3 + 7-8 (no Docker, includes Promptfoo & doc tools)"
 echo ""
-read -rp "Choice [1/2/3]: " CHOICE
+read -rp "Choice [1/2/3/4]: " CHOICE
 
 case "$CHOICE" in
   1)
     echo ""
     echo "Running full install..."
     echo ""
-    for phase in 1 2 3 4 5; do
+    for phase in 1 2 3 4 5 6 7 8; do
       run_phase $phase
       echo ""
     done
@@ -78,10 +82,13 @@ case "$CHOICE" in
     echo "  1 — Ollama + Models"
     echo "  2 — AnythingLLM"
     echo "  3 — Aider + Claude Code"
-    echo "  4 — Docker + n8n"
-    echo "  5 — MCP + SearXNG"
+    echo "  4 — Open WebUI            [Docker]"
+    echo "  5 — n8n (automation)       [Docker]"
+    echo "  6 — MCP + SearXNG         [Docker]"
+    echo "  7 — Promptfoo (eval)"
+    echo "  8 — Document Tools (Word & PDF)"
     echo ""
-    read -rp "Enter phase numbers (e.g. 1 3 5): " PHASES
+    read -rp "Enter phase numbers (e.g. 1 3 7 8): " PHASES
     for phase in $PHASES; do
       run_phase "$phase"
       echo ""
@@ -92,6 +99,15 @@ case "$CHOICE" in
     echo "Running Phases 1-3 (no Docker required)..."
     echo ""
     for phase in 1 2 3; do
+      run_phase $phase
+      echo ""
+    done
+    ;;
+  4)
+    echo ""
+    echo "Running Phases 1-3 + 7-8 (no Docker required)..."
+    echo ""
+    for phase in 1 2 3 7 8; do
       run_phase $phase
       echo ""
     done
@@ -110,13 +126,18 @@ echo ""
 echo "  Services:"
 echo "    Ollama:       http://localhost:11434"
 echo "    AnythingLLM:  http://localhost:3001"
-echo "    n8n:          http://localhost:5678   (if Phase 4 ran)"
-echo "    SearXNG:      http://localhost:8080   (if Phase 5 ran)"
+echo "    Open WebUI:   http://localhost:3000   (if Phase 4 ran)"
+echo "    n8n:          http://localhost:5678   (if Phase 5 ran)"
+echo "    SearXNG:      http://localhost:8080   (if Phase 6 ran)"
 echo ""
 echo "  Commands (run 'source ~/.zshrc' first):"
 echo "    ai-code   — Aider + Ollama (free)"
 echo "    ai-coder  — Aider + qwen2.5-coder (free)"
 echo "    ai-claude — Claude Code + Haiku (paid)"
+echo ""
+echo "  Other tools:"
+echo "    promptfoo eval --provider ollama:glm4:9b   (if Phase 7 ran)"
+echo "    Document tools available to Aider/Claude    (if Phase 8 ran)"
 echo ""
 echo "  Security reminders:"
 echo "    - Enable FileVault: System Settings > Privacy & Security"

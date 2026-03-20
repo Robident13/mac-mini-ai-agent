@@ -2,7 +2,7 @@
 set -e
 
 echo "========================================="
-echo "Phase 5 — MCP Servers + SearXNG"
+echo "Phase 6 — MCP Servers + SearXNG"
 echo "========================================="
 
 # --- Node.js (required for MCP servers) ---
@@ -65,7 +65,7 @@ fi
 
 echo ""
 echo "========================================="
-echo "Phase 5 COMPLETE"
+echo "Phase 6 COMPLETE"
 echo "========================================="
 echo ""
 echo "Services:"
