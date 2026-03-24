@@ -8,6 +8,7 @@ Automated setup for a hybrid local/cloud AI agent stack on Apple Silicon.
 |---|---|---|---|
 | 1 | Ollama + GLM-4 9B | Local LLM runtime + primary model | Free |
 | 1 | qwen2.5-coder:7b | Local coding model | Free |
+| 1 | Qwen3.5-27B IQ4_XS | Heavy reasoning model (bartowski, 15.17GB) | Free |
 | 1 | nomic-embed-text | Embedding model for RAG | Free |
 | 2 | AnythingLLM | Local document chat / RAG | Free |
 | 3 | Aider | Terminal coding agent (Ollama) | Free |
@@ -17,12 +18,9 @@ Automated setup for a hybrid local/cloud AI agent stack on Apple Silicon.
 | 6 | MCP Servers | File, GitHub, DB access for Claude | Free |
 | 6 | SearXNG | Private web search | Free |
 | 7 | Promptfoo | Prompt testing and evaluation | Free |
-| 8 | python-docx | Read/write Word (.docx) files | Free |
-| 8 | pypdf | Read and extract text from PDFs | Free |
-| 8 | pdf2docx | Convert PDF to Word | Free |
-| 8 | docx2pdf | Convert Word to PDF | Free |
-| 8 | reportlab | Create PDFs from scratch | Free |
-| 8 | pytesseract + tesseract | OCR for scanned/image PDFs | Free |
+| 8 | python-docx, pypdf, etc. | Word & PDF document processing + OCR | Free |
+| 9 | Local AI UI | React chat interface with animated robot face | Free |
+| 10 | Docker Agent | Multi-agent orchestration via YAML | Free |
 
 ## Quick Start
 
@@ -37,35 +35,48 @@ chmod +x setup.sh scripts/*.sh
 
 - macOS on Apple Silicon (M1/M2/M4)
 - [Homebrew](https://brew.sh) installed
-- [Docker Desktop](https://docs.docker.com/desktop/mac/) for Phases 4-6
+- [Docker Desktop](https://docs.docker.com/desktop/mac/) for Phases 4-6, 10
 - [Anthropic API key](https://console.anthropic.com) for Claude Code (Phase 3, optional)
 
 ## Install Options
 
 The setup script offers four modes:
 
-1. **Full install** — all 8 phases
+1. **Full install** — all 10 phases
 2. **Pick and choose** — select individual phases
 3. **Phases 1-3 only** — no Docker required
 4. **Phases 1-3 + 7-8** — no Docker, includes Promptfoo and document tools
+
+## Models
+
+| Model | Size | Role |
+|---|---|---|
+| GLM-4 9B | ~6GB | Primary — fast, good tool calling |
+| qwen2.5-coder:7b | ~5GB | Coding tasks via Aider |
+| Qwen3.5-27B IQ4_XS | ~15GB | Deep reasoning (don't run alongside other large models) |
+| nomic-embed-text | ~275MB | Embeddings for RAG |
+
+> Note: Don't run Qwen3.5-27B and GLM-4 9B simultaneously — 24GB isn't enough for both. Use `ollama stop` to unload one before loading the other.
 
 ## Commands After Install
 
 ```bash
 source ~/.zshrc
 
-ai-code          # Aider + Ollama GLM-4 (free)
-ai-coder         # Aider + qwen2.5-coder (free)
+ai-code          # Aider + Ollama GLM-4 (free, fast)
+ai-coder         # Aider + qwen2.5-coder (free, coding)
 ai-claude        # Claude Code + Haiku API (paid)
 ai-aider-claude  # Aider + Haiku API (paid)
+
+# Deep reasoning with Qwen3.5-27B
+aider --model ollama_chat/qwen35-27b
 
 # Prompt testing (free)
 promptfoo eval --provider ollama:glm4:9b
 
-# Document tools — just ask Aider or Claude Code:
-# "Read invoice.pdf and extract the total"
-# "Convert this Word doc to PDF"
-# "This PDF is a scan — use OCR to read it"
+# Docker Agent (multi-agent)
+docker agent run --config ~/.docker-agents/assistant.yaml
+docker agent run --config ~/.docker-agents/coordinator.yaml
 ```
 
 ## Ports
@@ -75,6 +86,7 @@ promptfoo eval --provider ollama:glm4:9b
 | Ollama | 11434 | http://localhost:11434 |
 | Open WebUI | 3000 | http://localhost:3000 |
 | AnythingLLM | 3001 | http://localhost:3001 |
+| Local AI UI | 5173 | http://localhost:5173 |
 | n8n | 5678 | http://localhost:5678 |
 | SearXNG | 8080 | http://localhost:8080 |
 

@@ -15,11 +15,12 @@ echo "    Phase 6: MCP servers + SearXNG (private search)   [Docker]"
 echo "    Phase 7: Promptfoo (prompt testing / eval)"
 echo "    Phase 8: Document tools (Word & PDF processing)"
 echo "    Phase 9: Local AI UI (React chat interface)"
+echo "    Phase 10: Docker Agent (multi-agent orchestration) [Docker]"
 echo ""
 echo "  Prerequisites:"
 echo "    - macOS on Apple Silicon (M1/M2/M4)"
 echo "    - Homebrew installed (https://brew.sh)"
-echo "    - Docker Desktop for Phases 4-6 (https://docs.docker.com/desktop/mac/)"
+echo "    - Docker Desktop for Phases 4-6, 10 (https://docs.docker.com/desktop/mac/)"
 echo ""
 
 # Check prerequisites
@@ -60,7 +61,7 @@ run_phase() {
 
 echo "How would you like to install?"
 echo ""
-echo "  1) Full install (all 9 phases)"
+echo "  1) Full install (all 10 phases)"
 echo "  2) Phase by phase (choose which to run)"
 echo "  3) Phases 1-3 only (no Docker required)"
 echo "  4) Phases 1-3 + 7-8 (no Docker, includes Promptfoo & doc tools)"
@@ -72,7 +73,7 @@ case "$CHOICE" in
     echo ""
     echo "Running full install..."
     echo ""
-    for phase in 1 2 3 4 5 6 7 8 9; do
+    for phase in 1 2 3 4 5 6 7 8 9 10; do
       run_phase $phase
       echo ""
     done
@@ -89,6 +90,7 @@ case "$CHOICE" in
     echo "  7 — Promptfoo (eval)"
     echo "  8 — Document Tools (Word & PDF)"
     echo "  9 — Local AI UI"
+    echo "  10 — Docker Agent         [Docker]"
     echo ""
     read -rp "Enter phase numbers (e.g. 1 3 7 8): " PHASES
     for phase in $PHASES; do
@@ -141,6 +143,7 @@ echo ""
 echo "  Other tools:"
 echo "    promptfoo eval --provider ollama:glm4:9b   (if Phase 7 ran)"
 echo "    Document tools available to Aider/Claude    (if Phase 8 ran)"
+echo "    docker agent run --config ~/.docker-agents/assistant.yaml  (if Phase 10 ran)"
 echo ""
 echo "  Security reminders:"
 echo "    - Enable FileVault: System Settings > Privacy & Security"
