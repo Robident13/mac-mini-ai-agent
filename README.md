@@ -21,6 +21,7 @@ Automated setup for a hybrid local/cloud AI agent stack on Apple Silicon.
 | 8 | python-docx, pypdf, etc. | Word & PDF document processing + OCR | Free |
 | 9 | Local AI UI | React chat interface with animated robot face | Free |
 | 10 | Docker Agent | Multi-agent orchestration via YAML | Free |
+| 11 | yt-dlp, gallery-dl, OF-Scraper | Secure media downloaders (Keychain creds) | Free |
 
 ## Quick Start
 
@@ -35,14 +36,14 @@ chmod +x setup.sh scripts/*.sh
 
 - macOS on Apple Silicon (M1/M2/M4)
 - [Homebrew](https://brew.sh) installed
-- [Docker Desktop](https://docs.docker.com/desktop/mac/) for Phases 4-6, 10
+- [Docker Desktop](https://docs.docker.com/desktop/mac/) for Phases 4–6, 10
 - [Anthropic API key](https://console.anthropic.com) for Claude Code (Phase 3, optional)
 
 ## Install Options
 
 The setup script offers four modes:
 
-1. **Full install** — all 10 phases
+1. **Full install** — all 11 phases
 2. **Pick and choose** — select individual phases
 3. **Phases 1-3 only** — no Docker required
 4. **Phases 1-3 + 7-8** — no Docker, includes Promptfoo and document tools
@@ -77,6 +78,12 @@ promptfoo eval --provider ollama:glm4:9b
 # Docker Agent (multi-agent)
 docker agent run --config ~/.docker-agents/assistant.yaml
 docker agent run --config ~/.docker-agents/coordinator.yaml
+
+# Download tools (Phase 11)
+ytdl URL              # download video
+ytdl-audio URL        # download audio only (mp3)
+gdl URL               # download gallery (Keychain creds)
+ofscrape              # run OF-Scraper (Keychain creds)
 ```
 
 ## Ports
