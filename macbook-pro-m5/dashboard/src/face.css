@@ -1,0 +1,203 @@
+/* Local LLM Face — "a bracketed face, not a sparkle"
+ * Two chamfered brackets and two dots carry every state.
+ * White is the resting identity; blue only appears when the system is doing
+ * hardware or transport work; red only on failure.
+ * Motion is the message: nothing rotates, glows or gradients for decoration.
+ */
+
+:root {
+  --lf-core: #ffffff;
+  --lf-system: #3b82f6;
+  --lf-fault: #ef4444;
+  --lf-label: #9ca3af;
+  --lf-surface: #18181b;
+}
+
+/* ── keyframes ─────────────────────────────────────────────── */
+@keyframes lf-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes lf-blink {
+  0%, 84% { transform: scaleY(1); }
+  90% { transform: scaleY(0.1); }
+  96%, 100% { transform: scaleY(1); }
+}
+@keyframes lf-jitter {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  20% { transform: translateX(-3px); opacity: 0.8; }
+  40% { transform: translateX(3px); opacity: 1; }
+  60% { transform: translateX(-1px); opacity: 0.9; }
+}
+@keyframes lf-tilt-l {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(6deg); }
+}
+@keyframes lf-tilt-r {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-6deg); }
+}
+@keyframes lf-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes lf-brk-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+@keyframes lf-eye-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+@keyframes lf-alt-a {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+@keyframes lf-alt-b {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+@keyframes lf-ping-l {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-6px); }
+}
+@keyframes lf-ping-r {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+@keyframes lf-err {
+  0%, 22%, 100% { transform: translateX(0); }
+  5% { transform: translateX(-5px); }
+  11% { transform: translateX(5px); }
+  17% { transform: translateX(-5px); }
+}
+@keyframes lf-dash-a {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+@keyframes lf-dash-b {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+@keyframes lf-sonar {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes lf-bar {
+  0% { transform: translateY(-115%); }
+  100% { transform: translateY(115%); }
+}
+
+/* ── face ──────────────────────────────────────────────────── */
+.lf {
+  --lf-h: 34px;
+  --lf-tone: var(--lf-core);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--lf-h) * 0.12);
+  height: var(--lf-h);
+  color: var(--lf-tone);
+  overflow: hidden;
+}
+
+.lf-brk {
+  height: var(--lf-h);
+  width: auto;
+  flex: none;
+  color: inherit;
+  transform-origin: center;
+}
+
+.lf-eyes {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--lf-h) * 0.18);
+  transform-origin: center;
+}
+
+.lf-dot {
+  width: calc(var(--lf-h) * 0.145);
+  height: calc(var(--lf-h) * 0.145);
+  border-radius: 50%;
+  background: currentColor;
+  transform-origin: center;
+}
+
+/* sonar ring — scanning only */
+.lf-sonar {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: calc(var(--lf-h) * 0.9);
+  height: calc(var(--lf-h) * 0.9);
+  margin: calc(var(--lf-h) * -0.45) 0 0 calc(var(--lf-h) * -0.45);
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* sweeping fill — loading only */
+.lf-bar {
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ── states ────────────────────────────────────────────────── */
+
+/* resting identity — white, machine-like */
+.lf[data-state='idle'] .lf-eyes { animation: lf-breathe 2.8s ease-in-out infinite; }
+.lf[data-state='idle'] .lf-dot { animation: lf-blink 4.4s ease-in-out infinite; }
+
+.lf[data-state='greeting'] { animation: lf-bob 0.9s ease-in-out infinite; }
+
+.lf[data-state='listening'] .lf-dot { animation: lf-eye-pulse 1.4s ease-in-out infinite; }
+
+.lf[data-state='thinking'] .lf-dot-a { animation: lf-alt-a 1.1s ease-in-out infinite; }
+.lf[data-state='thinking'] .lf-dot-b { animation: lf-alt-b 1.1s ease-in-out infinite; }
+
+.lf[data-state='speaking'] .lf-eyes { animation: lf-eye-pulse 0.62s ease-in-out infinite; }
+.lf[data-state='speaking'] .lf-brk-l { animation: lf-ping-l 0.62s ease-in-out infinite; }
+.lf[data-state='speaking'] .lf-brk-r { animation: lf-ping-r 0.62s ease-in-out infinite; }
+
+.lf[data-state='confused'] { animation: lf-tilt-l 1.6s ease-in-out infinite; }
+.lf[data-state='curious'] { animation: lf-tilt-r 1.6s ease-in-out infinite; }
+
+.lf[data-state='happy'] .lf-brk { animation: lf-brk-pulse 1.2s ease-in-out infinite; }
+
+/* system work — blue */
+.lf[data-state='loading'] { --lf-tone: var(--lf-system); }
+.lf[data-state='loading'] .lf-bar { opacity: 0.55; animation: lf-bar 1.2s linear infinite; }
+
+.lf[data-state='scanning'] { --lf-tone: var(--lf-system); }
+.lf[data-state='scanning'] .lf-sonar { animation: lf-sonar 1.8s ease-out infinite; }
+
+.lf[data-state='transfer'] { --lf-tone: var(--lf-system); }
+.lf[data-state='transfer'] .lf-brk-l { animation: lf-ping-l 1s ease-in-out infinite; }
+.lf[data-state='transfer'] .lf-brk-r { animation: lf-ping-r 1s ease-in-out infinite; }
+
+.lf[data-state='sync'] { --lf-tone: var(--lf-system); }
+.lf[data-state='sync'] .lf-dot-a { animation: lf-dash-a 0.9s linear infinite; }
+.lf[data-state='sync'] .lf-dot-b { animation: lf-dash-b 0.9s linear infinite; }
+
+/* failure — red, and only here */
+.lf[data-state='error'] { --lf-tone: var(--lf-fault); animation: lf-err 0.8s ease-in-out infinite; }
+.lf[data-state='error'] .lf-dot { animation: lf-jitter 0.8s ease-in-out infinite; }
+
+/* motion is the message — but never at the cost of access */
+@media (prefers-reduced-motion: reduce) {
+  .lf, .lf * {
+    animation: none !important;
+  }
+  .lf[data-state='loading'] .lf-bar { opacity: 0.35; }
+  .lf[data-state='scanning'] .lf-sonar { opacity: 0.5; }
+}

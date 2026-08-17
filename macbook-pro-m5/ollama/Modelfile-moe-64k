@@ -1,0 +1,14 @@
+# Builds the active model: qwen3.6-moe-64k
+# Qwen3.6-35B-A3B (MoE), Q4_K_M quant, 64K context baked in.
+#
+# 1. Pull the GGUF (~21GB): huggingface-cli download unsloth/Qwen3.6-35B-A3B-MTP-GGUF
+#    --include "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf" --local-dir ~/LocalLLM/Models
+# 2. ollama create qwen3.6-moe-64k -f Modelfile-moe-64k
+#
+# Ollama's default context window is much smaller than this and Hermes
+# Agent hard-requires >=64K, so num_ctx has to be baked in here rather
+# than left to request-time defaults.
+
+FROM ~/LocalLLM/Models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
+
+PARAMETER num_ctx 65536

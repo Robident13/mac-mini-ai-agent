@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.searxng.local</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Users/robertdutoit/LocalLLM/Repos/searxng-env/bin/python</string>
+		<string>-m</string>
+		<string>searx.webapp</string>
+	</array>
+	<key>WorkingDirectory</key>
+	<string>/Users/robertdutoit/LocalLLM/Repos/searxng</string>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>SEARXNG_SETTINGS_PATH</key>
+		<string>/Users/robertdutoit/.searxng/settings.yml</string>
+		<key>SEARXNG_PORT</key>
+		<string>8899</string>
+		<key>SEARXNG_BIND_ADDRESS</key>
+		<string>127.0.0.1</string>
+	</dict>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>KeepAlive</key>
+	<dict>
+		<key>SuccessfulExit</key>
+		<false/>
+	</dict>
+	<key>StandardOutPath</key>
+	<string>/Users/robertdutoit/Library/Logs/searxng/searxng.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/robertdutoit/Library/Logs/searxng/searxng.error.log</string>
+</dict>
+</plist>

@@ -1,2 +1,12 @@
 .DS_Store
 *.env
+
+# macbook-pro-m5/
+node_modules/
+dist/
+build/
+*.build/
+.DerivedData/
+config.yaml
+auth.json
+*.gguf
